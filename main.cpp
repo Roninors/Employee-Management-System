@@ -85,7 +85,27 @@ public:
         for (int i = 0; i < numberOfEmployees; i++)
         {
             if (employeeArr[i] != nullptr)
+
                 employeeArr[i]->showEmployees();
+        }
+    }
+
+    void searchUser(std::string findUser)
+    {
+
+        for (int i = 0; i < numberOfEmployees; i++)
+        {
+            if (employeeArr[i]->getEmpName() == findUser)
+            {
+                std::cout << "User  found."
+                          << "\n";
+                employeeArr[i]->showEmployees();
+            }
+            else
+            {
+                std::cerr << "User not found."
+                          << "\n";
+            }
         }
     }
 };
@@ -101,7 +121,7 @@ int main()
     int numberOfEmployees;
     std::string deleteName;
     int userId = 0;
-    empM.Show();
+    std::string findUser;
 
     while (true)
     {
@@ -163,6 +183,11 @@ int main()
             std::cin >> deleteName;
             empM.deleteUser(deleteName);
 
+            break;
+        case 4:
+            std::cout << "Search user by name: ";
+            std::cin >> findUser;
+            empM.searchUser(findUser);
             break;
         default:
             std::cout << "Operation not found\n";
