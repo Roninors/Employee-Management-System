@@ -1,1 +1,1 @@
-w();
+ if (employeeArr[i] != nullptr)

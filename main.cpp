@@ -6,13 +6,15 @@ private:
     std::string empName;
     int empAge;
     std::string position;
+    int id;
 
 public:
-    Employee(std::string name, int age, std::string pos)
+    Employee(std::string name, int age, std::string pos, int userId)
     {
         empAge = age;
         empName = name;
         position = pos;
+        id = userId;
     }
 
     std::string getEmpName()
@@ -37,8 +39,8 @@ public:
 
         std::cout << "Name: " << empName << "\n";
         std::cout << "Age: " << empAge << "\n";
-        std::cout << "Position: " << position;
-
+        std::cout << "Position: " << position << "\n";
+        std::cout << "ID: " << id;
         std::cout << "\n==================================================\n";
     }
 };
@@ -69,15 +71,9 @@ public:
             if (userDel == employeeArr[i]->getEmpName())
             {
                 delete employeeArr[i];
-                employeeArr[i] = employeeArr[numberOfEmployees - 1];
-                numberOfEmployees--;
+                employeeArr[i] = nullptr;
+
                 std::cout << "Employee deleted!" << std::endl;
-                return;
-            }
-            else
-            {
-                std::cout << "Employee Not Found."
-                          << "\n";
                 break;
             }
         }
@@ -88,7 +84,8 @@ public:
 
         for (int i = 0; i < numberOfEmployees; i++)
         {
-            employeeArr[i]->showEmployees();
+            if (employeeArr[i] != nullptr)
+                employeeArr[i]->showEmployees();
         }
     }
 };
@@ -103,7 +100,7 @@ int main()
     std::string enterPosition;
     int numberOfEmployees;
     std::string deleteName;
-
+    int userId = 0;
     empM.Show();
 
     while (true)
@@ -140,6 +137,7 @@ int main()
 
             for (int i = 0; i < numberOfEmployees; i++)
             {
+                userId++;
                 std::cout << "-----------------------------------\n";
 
                 std::cout << "Enter Name: ";
@@ -151,7 +149,7 @@ int main()
                 std::cout << "Enter Position: ";
                 std::cin >> enterPosition;
                 std::cout << "-----------------------------------\n";
-                Employee *employee = new Employee(enterName, enterAge, enterPosition);
+                Employee *employee = new Employee(enterName, enterAge, enterPosition, userId);
 
                 empM.addUser(employee);
             }
